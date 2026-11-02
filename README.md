@@ -14,7 +14,7 @@ A small English-practice website for Italian-speaking learners. Listen to countr
 
 ## Pronunciation
 
-The page uses the browser's Web Speech API with the **Daniel (British English)** voice. It does not contain recorded audio or use a paid speech service. Daniel must be available on the device; otherwise the page explains that the voice is missing. Availability varies by operating system and browser, and some voices require an internet connection.
+The page uses the browser's Web Speech API, preferring **Daniel (British English)**. If Daniel is unavailable, it automatically selects another British English voice, then the device’s default English voice, then any available English voice. No voice selector is needed. If the browser has not exposed its voice list yet, the page requests British English directly from the speech engine. If a loaded voice list contains no English voices, the page explains how to add one. It does not contain recorded audio or use a paid speech service. Availability varies by operating system and browser, and some voices require an internet connection.
 
 Normal playback requests rate `1`; slow playback requests `0.45`. Actual timing depends on the speech engine.
 
