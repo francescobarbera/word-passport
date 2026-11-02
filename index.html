@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="it"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Word Passport · English practice</title><style>
+:root{font-family:ui-rounded,'Trebuchet MS',system-ui,sans-serif;color:#203c39;background:#f7f6ee;font-synthesis:none}*{box-sizing:border-box}body{margin:0}header,main,footer{max-width:1100px;margin:auto;padding:24px}nav{display:flex;align-items:center;justify-content:space-between;font-weight:800}.brand{font-size:22px}.brand span{background:#215b4e;color:white;padding:9px;border-radius:12px;margin-right:10px}.tag{font-size:12px;letter-spacing:2px;color:#60756d}.hero{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:45px 0 30px}h1{font-size:clamp(38px,6vw,65px);line-height:1.05;letter-spacing:-2px;margin:14px 0}h1 em{color:#34866c;font-style:normal}.intro{font-size:18px;line-height:1.6;color:#5b6d65;max-width:620px}.stamp{flex-shrink:0;width:150px;height:150px;border:2px dashed #5f8a73;border-radius:50%;display:grid;place-content:center;text-align:center;transform:rotate(9deg);color:#44775d;font-size:12px;letter-spacing:2px}.stamp strong{font-size:50px;letter-spacing:0}.panel{background:#e7eddf;border-radius:22px;padding:20px;display:flex;gap:20px;align-items:end;flex-wrap:wrap}label{font-size:13px;font-weight:700;display:grid;gap:8px}select,input{font:inherit;color:inherit;background:#fff;border:1px solid #cad4c7;border-radius:12px;padding:13px;max-width:100%}select{min-width:165px}.search{flex:1;min-width:200px}.voice{max-width:280px}button{font:inherit;cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #cf8739;outline-offset:3px}.tip{font-size:13px;color:#657364;margin:14px 4px;min-height:20px}main{padding-top:0}.listhead{display:flex;align-items:center;justify-content:space-between;margin:28px 0 14px}h2{font-size:23px;margin:0}.count{font-size:13px;color:#66796c}.table{background:#fff;border:1px solid #e0e4d9;border-radius:20px;overflow:hidden}.row{display:grid;grid-template-columns:1.05fr 1fr 1fr;gap:22px;align-items:center;padding:15px 25px;border-bottom:1px solid #edf0e7;min-height:78px}.row:last-child{border-bottom:0}.head{font-size:11px;letter-spacing:1.7px;font-weight:800;background:#eef1e7;min-height:46px}.italian{font-weight:600;color:#617265;font-size:15px}.word{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:18px;font-weight:700}.play{border:0;background:#edf4e9;color:#27644d;border-radius:50%;width:43px;height:43px;flex-shrink:0;display:grid;place-items:center;transition:background .15s,transform .15s}.play:hover{background:#d6e8cf;transform:scale(1.05)}.play.active{background:#215b4e;color:#fff}.play svg{width:19px;height:19px}.empty{padding:40px;text-align:center}footer{font-size:12px;color:#6c7e70;padding-bottom:35px}.stop{border:1px solid #b7c6b0;background:transparent;border-radius:12px;padding:13px;color:#345c43}.mobilelabel{display:none}@media(max-width:650px){header,main,footer{padding:18px}.hero{padding-top:30px}.stamp{display:none}.tag{font-size:10px}.panel{gap:12px}.voice{max-width:100%;width:100%}select{min-width:0}.search{width:100%;flex-basis:100%}.head{display:none}.row{grid-template-columns:1fr 1fr;padding:16px;gap:10px 18px}.italian{grid-column:1/-1;font-size:13px}.word{font-size:16px}.mobilelabel{display:block;font-size:10px;letter-spacing:1px;color:#7b897b;margin-bottom:5px;font-weight:400}h1{letter-spacing:-1.3px}.intro{font-size:16px}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+.slow-toggle{position:relative;display:flex;align-items:center;gap:10px;min-height:47px;cursor:pointer;white-space:nowrap}.slow-toggle input{position:absolute;opacity:0;width:46px;height:28px;margin:0}.switch-track{display:block;width:46px;height:28px;border-radius:20px;background:#a4b2a1;transition:background .15s}.switch-track:before{content:"";display:block;width:22px;height:22px;margin:3px;border-radius:50%;background:white;box-shadow:0 1px 3px #0002;transition:transform .15s}.slow-toggle input:checked+.switch-track{background:#215b4e}.slow-toggle input:checked+.switch-track:before{transform:translateX(18px)}.slow-toggle input:focus-visible+.switch-track{outline:3px solid #cf8739;outline-offset:3px}</style></head><body><header><section class="panel" aria-label="Opzioni di ascolto"><label class="search">Cerca un paese o una nazionalità<input id="search" type="search" placeholder="Es. Italia, Italy, Italian…"></label><label class="slow-toggle"><input id="speed" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span><span>Più lenta</span></label><button class="stop" id="stop">■ Stop</button></section><p class="tip" id="status" role="status" aria-live="polite">Scegli una parola per iniziare.</p></header><main><div class="listhead"><h2>Paesi e nazionalità</h2><span class="count" id="count"></span></div><div class="table"><div class="row head"><span>ITALIANO</span><span>COUNTRY · PAESE</span><span>NATIONALITY · NAZIONALITÀ</span></div><div id="rows"></div></div></main><footer>Ascolta, ripeti, esplora. ✦ La pronuncia usa la voce Daniel del dispositivo e può richiedere una connessione a Internet.</footer><script>
+const raw=`Albania|Albania|Albanian
+Andorra|Andorra|Andorran
+Armenia|Armenia|Armenian
+Austria|Austria|Austrian
+Azerbaigian|Azerbaijan|Azerbaijani
+Belgio|Belgium|Belgian
+Bielorussia|Belarus|Belarusian
+Bosnia ed Erzegovina|Bosnia and Herzegovina|Bosnian
+Bulgaria|Bulgaria|Bulgarian
+Cechia|Czechia|Czech
+Cipro|Cyprus|Cypriot
+Croazia|Croatia|Croatian
+Danimarca|Denmark|Danish
+Estonia|Estonia|Estonian
+Finlandia|Finland|Finnish
+Francia|France|French
+Georgia|Georgia|Georgian
+Germania|Germany|German
+Grecia|Greece|Greek
+Irlanda|Ireland|Irish
+Islanda|Iceland|Icelandic
+Italia|Italy|Italian
+Kazakistan|Kazakhstan|Kazakh
+Kosovo|Kosovo|Kosovar
+Lettonia|Latvia|Latvian
+Liechtenstein|Liechtenstein|Liechtensteiner
+Lituania|Lithuania|Lithuanian
+Lussemburgo|Luxembourg|Luxembourgish
+Macedonia del Nord|North Macedonia|Macedonian
+Malta|Malta|Maltese
+Moldavia|Moldova|Moldovan
+Monaco|Monaco|Monégasque
+Montenegro|Montenegro|Montenegrin
+Norvegia|Norway|Norwegian
+Paesi Bassi|Netherlands|Dutch
+Polonia|Poland|Polish
+Portogallo|Portugal|Portuguese
+Regno Unito|United Kingdom|British
+Romania|Romania|Romanian
+Russia|Russia|Russian
+San Marino|San Marino|Sammarinese
+Serbia|Serbia|Serbian
+Slovacchia|Slovakia|Slovak
+Slovenia|Slovenia|Slovenian
+Spagna|Spain|Spanish
+Svezia|Sweden|Swedish
+Svizzera|Switzerland|Swiss
+Turchia|Turkey|Turkish
+Ucraina|Ukraine|Ukrainian
+Ungheria|Hungary|Hungarian
+Vaticano|Vatican City|Vatican
+Algeria|Algeria|Algerian
+Arabia Saudita|Saudi Arabia|Saudi
+Argentina|Argentina|Argentinian
+Australia|Australia|Australian
+Bangladesh|Bangladesh|Bangladeshi
+Brasile|Brazil|Brazilian
+Canada|Canada|Canadian
+Cile|Chile|Chilean
+Cina|China|Chinese
+Colombia|Colombia|Colombian
+Corea del Nord|North Korea|North Korean
+Corea del Sud|South Korea|South Korean
+Costa Rica|Costa Rica|Costa Rican
+Cuba|Cuba|Cuban
+Ecuador|Ecuador|Ecuadorian
+Egitto|Egypt|Egyptian
+Emirati Arabi Uniti|United Arab Emirates|Emirati
+Etiopia|Ethiopia|Ethiopian
+Filippine|Philippines|Filipino
+Giamaica|Jamaica|Jamaican
+Giappone|Japan|Japanese
+Giordania|Jordan|Jordanian
+Ghana|Ghana|Ghanaian
+India|India|Indian
+Indonesia|Indonesia|Indonesian
+Iran|Iran|Iranian
+Iraq|Iraq|Iraqi
+Israele|Israel|Israeli
+Kenya|Kenya|Kenyan
+Libano|Lebanon|Lebanese
+Libia|Libya|Libyan
+Malesia|Malaysia|Malaysian
+Marocco|Morocco|Moroccan
+Messico|Mexico|Mexican
+Nepal|Nepal|Nepali
+Nigeria|Nigeria|Nigerian
+Nuova Zelanda|New Zealand|New Zealander
+Pakistan|Pakistan|Pakistani
+Palestina|Palestine|Palestinian
+Panama|Panama|Panamanian
+Paraguay|Paraguay|Paraguayan
+Perù|Peru|Peruvian
+Qatar|Qatar|Qatari
+Repubblica Dominicana|Dominican Republic|Dominican
+Senegal|Senegal|Senegalese
+Singapore|Singapore|Singaporean
+Siria|Syria|Syrian
+Sri Lanka|Sri Lanka|Sri Lankan
+Stati Uniti|United States|American
+Sudafrica|South Africa|South African
+Taiwan|Taiwan|Taiwanese
+Thailandia|Thailand|Thai
+Tunisia|Tunisia|Tunisian
+Uruguay|Uruguay|Uruguayan
+Venezuela|Venezuela|Venezuelan
+Vietnam|Vietnam|Vietnamese`;
+const data=raw.split('\n').map(r=>r.split('|'));const $=id=>document.getElementById(id);const synth=window.speechSynthesis;let daniel=null,active=null,utterance=null,sequence=0,lastPlayback=null;
+const normalize=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+function clearActive(){if(active){active.classList.remove('active');active.setAttribute('aria-pressed','false');active=null}}
+function stop(){sequence++;if(synth)synth.cancel();utterance=null;clearActive()}
+function speak(word,button){stop();if(!synth){$('status').textContent='Questo browser non supporta la pronuncia. Prova Safari, Chrome o Edge.';return}loadVoices();if(!daniel){$('status').textContent='La voce Daniel non è disponibile. Aggiungi Daniel (inglese britannico) nelle impostazioni vocali del dispositivo e ricarica la pagina.';return}const current=sequence;utterance=new SpeechSynthesisUtterance(word);utterance.voice=daniel;utterance.lang=utterance.voice.lang;utterance.rate=$('speed').checked?0.45:1;lastPlayback={word,button};active=button;button.classList.add('active');button.setAttribute('aria-pressed','true');$('status').textContent=($('speed').checked?'Ascolta lentamente: ':'Ascolta: ')+word;utterance.onend=()=>{if(current!==sequence)return;clearActive();$('status').textContent='Ora tocca a te! Ripeti: '+word;utterance=null};utterance.onerror=e=>{if(current!==sequence)return;clearActive();$('status').textContent='Audio non disponibile. Controlla l’audio del dispositivo e riprova.';utterance=null};synth.speak(utterance)}
+function render(){const q=normalize($('search').value.trim());const filtered=data.filter(r=>normalize(r.join(' ')).includes(q));$('count').textContent=filtered.length+' / '+data.length+' paesi';$('rows').replaceChildren();for(const row of filtered){const el=document.createElement('div');el.className='row';const it=document.createElement('div');it.className='italian';it.textContent=row[0];el.append(it);row.slice(1).forEach((word,i)=>{const cell=document.createElement('div');cell.className='word';cell.lang='en';const text=document.createElement('span');const label=document.createElement('span');label.className='mobilelabel';label.textContent=i?'NATIONALITY':'COUNTRY';text.append(label,document.createTextNode(word));const button=document.createElement('button');button.className='play';button.setAttribute('aria-label','Ascolta '+word);button.setAttribute('aria-pressed','false');button.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 4v16l14-8z"/></svg>';button.onclick=()=>speak(word,button);cell.append(text,button);el.append(cell)});$('rows').append(el)}if(!filtered.length){const empty=document.createElement('div');empty.className='empty';empty.textContent='Nessun risultato. Prova un’altra parola!';$('rows').append(empty)}}
+function loadVoices(){if(!synth){$('status').textContent='Questo browser non supporta la pronuncia. Prova Safari, Chrome o Edge.';return}daniel=synth.getVoices().find(v=>/daniel/i.test(v.name)&&/^en[-_]GB$/i.test(v.lang))||null}
+$('search').addEventListener('input',()=>{stop();lastPlayback=null;render()});$('stop').onclick=()=>{stop();$('status').textContent='Audio fermato. Scegli una parola per continuare.'};$('speed').onchange=()=>{if(lastPlayback){speak(lastPlayback.word,lastPlayback.button)}else{$('status').textContent=$('speed').checked?'Pronuncia lenta attiva. Premi ▶ per ascoltare.':'Pronuncia normale attiva. Premi ▶ per ascoltare.'}};window.addEventListener('pagehide',stop);render();loadVoices();if(synth)synth.addEventListener('voiceschanged',loadVoices);
+</script></body></html>
